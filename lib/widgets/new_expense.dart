@@ -10,6 +10,6 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold();
   }
 }
