@@ -10,6 +10,11 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+       body:Center(
+        child: 
+        Text('New Expense')
+        )
+    );
   }
 }
