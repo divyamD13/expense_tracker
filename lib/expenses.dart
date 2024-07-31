@@ -1,5 +1,6 @@
 import 'package:expense_tracker/widgets/expense_list/expense_list.dart';
 import 'package:expense_tracker/models/expense.dart';
+import 'package:expense_tracker/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,10 +27,17 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
       showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
-        builder: (context) => Text('Enter data to open'),
+        builder: (context) => NewExpense(onAddExpense: _addExpense),
       );
   
   }
@@ -45,9 +53,6 @@ class _ExpensesState extends State<Expenses> {
           fontWeight: FontWeight.w600
         )
         ),
-        // actions: [
-        //   Drawer(),
-        // ],
       ),
       body: Column(
         children: [
