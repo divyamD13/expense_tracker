@@ -67,72 +67,78 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16,70,16,16),
-      child: Column(
-        children: [
-          TextField(
-            controller:_expenseTitleController,
-            keyboardType:TextInputType.text,
-            decoration: const InputDecoration(
-              label:Text('Expense Title'),
-            ),
-          ),
-          Row(children: [
-            Expanded(
-              child: TextField(
-                controller:_expenseAmountController,
-                keyboardType: TextInputType.number,
+    final keyboardSpace=MediaQuery.of(context).viewInsets.bottom;
+    return SizedBox(
+      height: double.infinity,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding:EdgeInsets.fromLTRB(16,70,16,keyboardSpace+16),
+          child: Column(
+            children: [
+              TextField(
+                controller:_expenseTitleController,
+                keyboardType:TextInputType.text,
                 decoration: const InputDecoration(
-                  label:Text('Amount'),
-                  prefixText: '₹ ',
+                  label:Text('Expense Title'),
                 ),
               ),
-            ), 
-            const SizedBox(width: 30,),
-            Expanded(
-              child: Row(children: [
-               Text(selectedDate==null? 'No Date Selected':formatter.format(selectedDate!)),
-              IconButton(onPressed:
-                _presentDatePicker,
-              icon: const Icon(Icons.calendar_month_sharp, size: 24,color: Colors.black,),)
+              Row(children: [
+                Expanded(
+                  child: TextField(
+                    controller:_expenseAmountController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      label:Text('Amount'),
+                      prefixText: '₹ ',
+                    ),
+                  ),
+                ), 
+                const SizedBox(width: 30,),
+                Expanded(
+                  child: Row(children: [
+                   Text(selectedDate==null? 'No Date Selected':formatter.format(selectedDate!)),
+                  IconButton(onPressed:
+                    _presentDatePicker,
+                  icon: const Icon(Icons.calendar_month_sharp, size: 24,color: Colors.black,),)
+                  ],),
+                )
               ],),
-            )
-          ],),
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              DropdownButton(
-                value: _selectedCategory,
-                items:Category.values.map((category) =>
-                 DropdownMenuItem(
-                  value: category,
-                  child: Text(
-                  category.name.toUpperCase()),
-                )).toList(),
-                onChanged:(value){
-                  if(value==null){
-                    return;
-                }
-                setState(() {
-                  _selectedCategory = value;
-                });
-                }
-              ),
-              const SizedBox(width: 10,),
-              TextButton(onPressed: 
-              (){
-                Navigator.pop(context);
-              },
-               child:const Text('Cancel'),
-              ),
-              const SizedBox(width: 5,),
-              ElevatedButton(onPressed: 
-                submitExpenseData,
-               child: const Text('Add Expense')),
+              const SizedBox(height: 10,),
+              Row(
+                children: [
+                  DropdownButton(
+                    value: _selectedCategory,
+                    items:Category.values.map((category) =>
+                     DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                      category.name.toUpperCase()),
+                    )).toList(),
+                    onChanged:(value){
+                      if(value==null){
+                        return;
+                    }
+                    setState(() {
+                      _selectedCategory = value;
+                    });
+                    }
+                  ),
+                  const SizedBox(width: 10,),
+                  TextButton(onPressed: 
+                  (){
+                    Navigator.pop(context);
+                  },
+                   child:const Text('Cancel'),
+                  ),
+                  const SizedBox(width: 5,),
+                  ElevatedButton(onPressed: 
+                    submitExpenseData,
+                   child: const Text('Add Expense')),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
